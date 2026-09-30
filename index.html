@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congreso Capital Humano e IA | John Galt</title>
+  <meta name="description" content="Deck horizontal — Congreso Capital Humano e impacto de la IA. John Galt · UNLaM.">
+  <meta name="author" content="John Galt">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/brand-tokens.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <div class="deck-ui" aria-hidden="false">
+    <div id="progress" class="progress" role="presentation"></div>
+    <button type="button" id="nav-prev" class="nav-btn nav-btn--prev" aria-label="Anterior">&#8592;</button>
+    <button type="button" id="nav-next" class="nav-btn nav-btn--next" aria-label="Siguiente">&#8594;</button>
+    <div id="dots" class="dots" role="tablist" aria-label="Diapositivas"></div>
+    <div id="slide-counter" class="slide-counter">01 / 07</div>
+    <div class="kbd-hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navegar <span id="mode-badge"></span></div>
+  </div>
+
+  <div class="deck-viewport">
+  <main id="deck" class="deck" role="region" aria-label="Presentación">
+
+    <!-- 1 PUBLIC: WELCOME -->
+    <section class="slide slide--stage" data-role="public" data-slide="1" aria-label="Bienvenida">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="John Galt">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide--stage-inner">
+        <p class="slide__kicker">Bienvenida</p>
+        <h1 class="welcome-title">Bienvenidos al Congreso de Capital Humano e impacto de la IA</h1>
+        <p class="welcome-context">Impacto de la IA en las habilidades profesionales</p>
+        <p class="welcome-lema">«El Futuro del Capital Humano en la era de la IA»</p>
+        <ul class="welcome-meta">
+          <li>UNLaM · Cátedra Administración de Personal · Departamento de Ciencias Económicas</li>
+          <li>8/10/2026 · ~90 min · Conductor: Elio Chaieb</li>
+        </ul>
+      </div>
+      <footer class="academic-footer">Departamento de Ciencias Económicas · UNLaM</footer>
+    </section>
+
+    <!-- 2: Introducción de Elio -->
+    <section class="slide" data-role="public" data-slide="2" aria-label="Introducción de Elio">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Segmento del conductor</p>
+        <h1 class="slide__title">Introducción de Elio</h1>
+        <div class="elio-placeholder card card--accent">
+          <p class="elio-placeholder__label">Placeholder · apertura de Elio</p>
+          <p class="elio-placeholder__body">Espacio para la intro del host. Elio abre el bloque a su estilo; Gui entra después en el diálogo.</p>
+          <p class="elio-placeholder__note">Este es su segmento. No adelantar el ejercicio del número.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3: Diálogo Elio ↔ Gui — 3 opciones con tabs -->
+    <section class="slide" data-role="public" data-slide="3" aria-label="Diálogo Elio Gui">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide" data-option-tabs>
+        <p class="slide__kicker">Diálogo Elio ↔ Gui</p>
+        <div class="option-tabs" role="tablist" aria-label="Opciones de diálogo">
+          <button type="button" class="option-tab is-active" role="tab" data-option-tab="1" aria-selected="true">Opción 1</button>
+          <button type="button" class="option-tab" role="tab" data-option-tab="2" aria-selected="false">Opción 2</button>
+          <button type="button" class="option-tab" role="tab" data-option-tab="3" aria-selected="false">Opción 3</button>
+        </div>
+
+        <!-- Opción 1 — Gestión diaria (principal) -->
+        <div class="option-panel is-active" data-option-panel="1" role="tabpanel">
+          <p class="option-panel__tag">Gestión diaria · principal</p>
+          <blockquote class="kicker-quote">
+            «¿En qué nos puede ayudar la IA en la gestión de trabajo diaria?»
+            <cite>Elio</cite>
+          </blockquote>
+          <div class="beats">
+            <article class="beat">
+              <h2 class="beat__label">Escena</h2>
+              <ul class="pills">
+                <li>Lunes · 9</li>
+                <li>40 mails</li>
+                <li>1:1</li>
+                <li>Conflicto</li>
+                <li>Informe</li>
+              </ul>
+            </article>
+            <article class="beat">
+              <h2 class="beat__label">La IA ordena el día</h2>
+              <p class="beat__note">No saca el laburo.</p>
+              <ul class="ia-list">
+                <li>Mails: urgente · espera · persona</li>
+                <li>Acta + 3 acciones</li>
+                <li>Borrador de feedback — vos reescribís</li>
+                <li>One-pager para dirección</li>
+              </ul>
+            </article>
+            <p class="punch">«La IA acelera. El humano decide.»</p>
+          </div>
+          <p class="bridge"><span class="bridge__kicker">Puente</span> Al azar no es dado — tiene preferencias. Probemos: número del 1 al 30.</p>
+        </div>
+
+        <!-- Opción 2 — Si Elio empuja riesgo -->
+        <div class="option-panel" data-option-panel="2" role="tabpanel" hidden>
+          <p class="option-panel__tag">Si Elio empuja riesgo</p>
+          <blockquote class="kicker-quote">
+            «¿En qué nos puede ayudar la IA en la gestión de trabajo diaria?»
+            <cite>Elio</cite>
+          </blockquote>
+          <div class="beats beats--compact">
+            <article class="beat">
+              <h2 class="beat__label">Misma escena · más corta</h2>
+              <ul class="pills">
+                <li>Lunes · 9</li>
+                <li>40 mails</li>
+                <li>1:1 · conflicto · informe</li>
+              </ul>
+              <p class="beat__note" style="margin-top:0.65rem;">IA ordena el día. El humano decide.</p>
+            </article>
+            <article class="beat beat--warn">
+              <h2 class="beat__label">Cierre · riesgo</h2>
+              <p class="punch punch--inline">«Si dejás que decida sola, no es ayuda: es abandono. Auditar no es opcional.»</p>
+            </article>
+          </div>
+          <p class="bridge"><span class="bridge__kicker">Puente</span> Probemos: número del 1 al 30.</p>
+        </div>
+
+        <!-- Opción 3 — Riesgo = creer que inventa -->
+        <div class="option-panel" data-option-panel="3" role="tabpanel" hidden>
+          <p class="option-panel__tag">Riesgo = creer que inventa</p>
+          <div class="option-solo">
+            <p class="punch punch--solo">«El riesgo no es que te ayude con el mail. Es que creas que está inventando.»</p>
+            <p class="bridge bridge--center"><span class="bridge__kicker">Puente</span> Mirá: número del 1 al 30.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 PUBLIC: QR ChatGPT -->
+    <section class="slide" data-role="public" data-slide="4" aria-label="Número en ChatGPT">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--split">
+        <div class="qr-copy">
+          <p class="slide__kicker">ChatGPT</p>
+          <p class="instruct">
+            <span>Decime un número entre el 1 y el 30</span>
+          </p>
+          <p class="instruct-hint">Sin pistas. Copiá / enviá ese mensaje.</p>
+        </div>
+        <figure class="qr-block">
+          <div class="qr-frame">
+            <img src="assets/qr-chatgpt.svg" width="300" height="300" alt="QR a https://chatgpt.com/">
+          </div>
+          <figcaption class="qr-caption">chatgpt.com</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 PUBLIC: 17 -->
+    <section class="slide slide--stage" data-role="public" data-slide="5" aria-label="Diecisiete">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide--stage-inner">
+        <p class="hero-num">17</p>
+        <p class="hero-sub">¿Cuántos sacaron 17?</p>
+      </div>
+    </section>
+
+    <!-- 6 PUBLIC: Claude challenge -->
+    <section class="slide" data-role="public" data-slide="6" aria-label="Claude">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--split">
+        <div class="qr-copy">
+          <p class="slide__kicker">Claude</p>
+          <p class="instruct">
+            <span>¿Querés hacerlo en Claude y ver qué da 23?</span>
+          </p>
+          <p class="instruct-hint">Mismo vibe: número entre el 1 y el 30.</p>
+        </div>
+        <figure class="qr-block">
+          <div class="qr-frame">
+            <img src="assets/qr-claude.svg" width="300" height="300" alt="QR a https://claude.ai/">
+          </div>
+          <figcaption class="qr-caption">claude.ai</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 7 PUBLIC: cierre -->
+    <section class="slide slide--stage" data-role="public" data-slide="7" aria-label="Cierre">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide--stage-inner">
+        <img class="close-logo" src="assets/logo.svg" alt="John Galt" width="64" height="64">
+        <h2 class="teaser teaser--close">
+          <span class="teaser__lead">John Galt desaparece</span>
+          <span>hasta la próxima interrupción</span>
+        </h2>
+      </div>
+    </section>
+
+  </main>
+  </div>
+
+  <script src="js/deck.js" defer></script>
+</body>
+</html>

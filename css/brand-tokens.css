@@ -1,0 +1,28 @@
+/* John Galt - estética cerrada (idea_14 / Brand Lab) */
+:root {
+    --phi: 1.618;
+    --lightness: 30;
+    --card-delta: -6;
+    --card-lightness: calc(var(--lightness) + var(--card-delta));
+    --bg-color: lch(var(--lightness) 0 0);
+    --card-bg: lch(var(--card-lightness) 0 0);
+    --text-color: lch(calc(var(--lightness) + 40) 0 0);
+    --muted: color-mix(in oklab, var(--text-color) 55%, transparent);
+    --line: rgba(128, 128, 128, 0.22);
+
+    --logo-gold: 0.85;
+    --logo-yellow: #FFD700;
+    --logo-dorado: #B8860B;
+    --logo-color: color-mix(in oklab, var(--logo-yellow) calc((1 - var(--logo-gold)) * 100%), var(--logo-dorado));
+    --overlay-color: #00aeef;
+
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --display-weight: 500;
+    --display-tracking: 0.1em;
+    --display-transform: uppercase;
+    --body-weight: 400;
+    --body-tracking: 0.01em;
+    --mono-tracking: 0.04em;
+}

@@ -1,0 +1,24 @@
+<svg viewBox="-10 -20 185 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="John Galt">
+  <path
+    d="M 0,0
+       A 100,100 0 0,0 100,100
+       A 61.8,61.8 0 0,0 161.8,38.2
+       A 38.2,38.2 0 0,0 123.6,0
+       A 23.6,23.6 0 0,0 100,23.6
+       A 14.6,14.6 0 0,0 114.6,38.2
+       A 9,9 0 0,0 123.6,29.2
+       A 5.6,5.6 0 0,0 118,23.6"
+    fill="none"
+    stroke="#FFD700"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+  <g transform="translate(120 28)">
+    <line
+      x1="0" y1="-57.5" x2="0" y2="57.5"
+      transform="rotate(216)"
+      stroke="#00aeef"
+      stroke-width="6.5"
+      stroke-linecap="round"/>
+  </g>
+</svg>
