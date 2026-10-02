@@ -156,40 +156,48 @@
         last: before.last,
       });
     }
-    var store = applyLocalVote(q, choice);
+
+    // Without a configured endpoint, localStorage is the intentional fallback.
     if (!isConfigured()) {
+      var localStore = applyLocalVote(q, choice);
       return Promise.resolve({
         ok: true,
         offline: true,
-        store: store,
-        tallies: { a: store.a, b: store.b },
+        store: localStore,
+        tallies: { a: localStore.a, b: localStore.b },
+        last: localStore.last,
       });
     }
+
+    // Do not persist the local lock until the remote register succeeds. This
+    // keeps a transient Apps Script failure retryable instead of looking final.
     return submitVote(q, choice)
       .then(function (res) {
         if (res && res.ok) {
+          var store = applyLocalVote(q, choice);
           return {
             ok: true,
             offline: false,
             store: store,
             tallies: mergeTallies(res.tallies, store),
+            last: store.last,
             remote: res,
           };
         }
         return {
-          ok: true,
-          offline: true,
-          store: store,
-          tallies: { a: store.a, b: store.b },
+          ok: false,
+          offline: false,
+          store: before,
+          tallies: { a: before.a, b: before.b },
           remoteError: (res && res.error) || "api_failed",
         };
       })
       .catch(function (err) {
         return {
-          ok: true,
-          offline: true,
-          store: store,
-          tallies: { a: store.a, b: store.b },
+          ok: false,
+          offline: false,
+          store: before,
+          tallies: { a: before.a, b: before.b },
           remoteError: String(err && err.message ? err.message : err),
         };
       });

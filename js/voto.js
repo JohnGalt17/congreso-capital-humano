@@ -66,14 +66,16 @@
 
   if (noteEl && API && API.isConfigured()) {
     noteEl.innerHTML =
-      "Un voto por perfil en esta sesión (A y B independientes). Una vez que votás este perfil, no se puede cambiar. Los votos van al Sheet; si falla la red, quedan en este navegador.";
+      "Un voto por perfil en esta sesi\u00f3n (A y B independientes). Una vez que votes este perfil, no se puede cambiar. Los votos se registran en el Sheet; si falla la red, pod\u00e9s reintentar.";
   } else if (noteEl) {
     noteEl.innerHTML =
-      "Un voto por perfil en esta sesión (A y B independientes). Una vez que votás este perfil, no se puede cambiar.";
+      "Un voto por perfil en esta sesi\u00f3n (A y B independientes). Una vez que votes este perfil, no se puede cambiar.";
   }
 
   var lastTallies = { a: { si: 0, no: 0 }, b: { si: 0, no: 0 } };
   var lastChoice = null;
+  var pendingChoice = null;
+  var errorMessage = "";
   var busy = false;
   var offlineMode = !(API && API.isConfigured());
   var justVoted = false;
@@ -85,6 +87,30 @@
 
   function renderConfirm() {
     if (!statusEl) return;
+    if (busy && pendingChoice) {
+      statusEl.hidden = false;
+      statusEl.className =
+        "voto-confirm voto-confirm--pending voto-confirm--" +
+        (pendingChoice === "si" ? "si" : "no");
+      statusEl.setAttribute("aria-busy", "true");
+      statusEl.innerHTML =
+        '<span class="voto-confirm__spinner" aria-hidden="true"></span>' +
+        '<span class="voto-confirm__text">Enviando tu voto\u2026</span>' +
+        '<span class="voto-confirm__hint">No cierres esta ventana</span>';
+      return;
+    }
+    statusEl.removeAttribute("aria-busy");
+    if (errorMessage) {
+      statusEl.hidden = false;
+      statusEl.className = "voto-confirm voto-confirm--error";
+      statusEl.innerHTML =
+        '<span class="voto-confirm__check" aria-hidden="true">!</span>' +
+        '<span class="voto-confirm__text">' +
+        errorMessage +
+        "</span>" +
+        '<span class="voto-confirm__hint">Pod\u00e9s volver a intentarlo</span>';
+      return;
+    }
     if (!lastChoice) {
       statusEl.hidden = true;
       statusEl.textContent = "";
@@ -97,11 +123,11 @@
       (lastChoice === "si" ? "si" : "no") +
       (justVoted ? " voto-confirm--flash" : "");
     statusEl.innerHTML =
-      '<span class="voto-confirm__check" aria-hidden="true">✓</span>' +
-      '<span class="voto-confirm__text">Tu voto quedó registrado: <strong>' +
+      '<span class="voto-confirm__check" aria-hidden="true">\u2713</span>' +
+      '<span class="voto-confirm__text">Tu voto qued\u00f3 registrado: <strong>' +
       choiceLabel(lastChoice) +
       "</strong></span>" +
-      '<span class="voto-confirm__hint">Voto bloqueado · solo este perfil · no se puede cambiar</span>';
+      '<span class="voto-confirm__hint">Voto bloqueado \u00b7 solo este perfil \u00b7 no se puede cambiar</span>';
   }
 
   function renderTally() {
@@ -142,13 +168,14 @@
     }
     actionsEl.querySelectorAll(".vote-opt").forEach(function (btn) {
       var choice = btn.getAttribute("data-choice");
-      var selected = lastChoice === choice;
+      var selectedChoice = pendingChoice || lastChoice;
+      var selected = selectedChoice === choice;
       btn.classList.toggle("is-selected", selected);
-      btn.classList.toggle("is-voted", !!lastChoice);
+      btn.classList.toggle("is-voted", !!lastChoice || !!pendingChoice);
       btn.setAttribute("aria-pressed", selected ? "true" : "false");
       btn.disabled = busy || locked;
     });
-    actionsEl.classList.toggle("voto-actions--voted", !!lastChoice);
+    actionsEl.classList.toggle("voto-actions--voted", !!lastChoice || !!pendingChoice);
   }
 
   function render() {
@@ -188,8 +215,8 @@
       btn.addEventListener("click", function () {
         var choice = btn.getAttribute("data-choice");
         if (choice !== "si" && choice !== "no") return;
-        if (busy || !API) return;
-        // Lock: already voted this q — ignore further taps
+        if (busy) return;
+        // Lock: already voted this q - ignore further taps
         if (lastChoice) {
           locked = true;
           justVoted = true;
@@ -200,11 +227,30 @@
           }, 900);
           return;
         }
+        if (!API || typeof API.voteWithFallback !== "function") {
+          errorMessage = "No pudimos registrar tu voto. Intent\u00e1 de nuevo.";
+          render();
+          return;
+        }
+
+        // Optimistic state: show feedback before waiting on Apps Script.
         busy = true;
+        pendingChoice = choice;
+        errorMessage = "";
         justVoted = false;
         render();
+
         API.voteWithFallback(q, choice).then(function (result) {
+          if (!result || !result.ok) {
+            busy = false;
+            pendingChoice = null;
+            errorMessage = "No pudimos registrar tu voto. Intent\u00e1 de nuevo.";
+            render();
+            return;
+          }
           busy = false;
+          pendingChoice = null;
+          errorMessage = "";
           lastChoice = choice;
           locked = true;
           justVoted = true;
@@ -213,6 +259,11 @@
             justVoted = false;
             renderConfirm();
           }, 1200);
+        }).catch(function () {
+          busy = false;
+          pendingChoice = null;
+          errorMessage = "No pudimos registrar tu voto. Intent\u00e1 de nuevo.";
+          render();
         });
       });
     });
