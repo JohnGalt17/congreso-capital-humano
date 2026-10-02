@@ -5,8 +5,9 @@
  * Reglas:
  * - sessionId estable por perfil de navegador (localStorage).
  * - Un voto por (sessionId + q). A y B son independientes (hasta 2 por sesión).
- * - Cambiar SÍ↔NO en el mismo q sobrescribe (backend dedupea sessionId+q).
+ * - Tras el primer voto de ese q, el voto queda BLOQUEADO (no se puede cambiar).
  * - Abrir otro perfil/navegador = otra sesión = nuevos votos.
+ * - Tallies en vivo solo con ?view=tally (operador); el teléfono no muestra tallies.
  *
  * Requiere js/api-config.js (window.CongresoAPI).
  */
@@ -65,7 +66,10 @@
 
   if (noteEl && API && API.isConfigured()) {
     noteEl.innerHTML =
-      "Un voto por perfil en esta sesión (A y B independientes). Podés cambiar tu voto tocando la otra opción. Los votos van al Sheet; si falla la red, quedan en este navegador.";
+      "Un voto por perfil en esta sesión (A y B independientes). Una vez que votás este perfil, no se puede cambiar. Los votos van al Sheet; si falla la red, quedan en este navegador.";
+  } else if (noteEl) {
+    noteEl.innerHTML =
+      "Un voto por perfil en esta sesión (A y B independientes). Una vez que votás este perfil, no se puede cambiar.";
   }
 
   var lastTallies = { a: { si: 0, no: 0 }, b: { si: 0, no: 0 } };
@@ -73,6 +77,7 @@
   var busy = false;
   var offlineMode = !(API && API.isConfigured());
   var justVoted = false;
+  var locked = false;
 
   function choiceLabel(c) {
     return c === "si" ? "SÍ" : "NO";
@@ -96,10 +101,11 @@
       '<span class="voto-confirm__text">Tu voto quedó registrado: <strong>' +
       choiceLabel(lastChoice) +
       "</strong></span>" +
-      '<span class="voto-confirm__hint">Podés cambiarlo tocando la otra opción · solo este perfil</span>';
+      '<span class="voto-confirm__hint">Voto bloqueado · solo este perfil · no se puede cambiar</span>';
   }
 
   function renderTally() {
+    if (!tallyView) return;
     var tallies = lastTallies[q] || { si: 0, no: 0 };
     var si = tallies.si || 0;
     var no = tallies.no || 0;
@@ -124,17 +130,25 @@
 
   function renderButtons() {
     if (!actionsEl) return;
+    locked = !!lastChoice;
+    if (locked) {
+      actionsEl.hidden = true;
+      actionsEl.setAttribute("aria-hidden", "true");
+      actionsEl.classList.add("voto-actions--locked");
+    } else {
+      actionsEl.hidden = false;
+      actionsEl.removeAttribute("aria-hidden");
+      actionsEl.classList.remove("voto-actions--locked");
+    }
     actionsEl.querySelectorAll(".vote-opt").forEach(function (btn) {
       var choice = btn.getAttribute("data-choice");
       var selected = lastChoice === choice;
       btn.classList.toggle("is-selected", selected);
       btn.classList.toggle("is-voted", !!lastChoice);
       btn.setAttribute("aria-pressed", selected ? "true" : "false");
-      btn.disabled = busy;
+      btn.disabled = busy || locked;
     });
-    if (actionsEl) {
-      actionsEl.classList.toggle("voto-actions--voted", !!lastChoice);
-    }
+    actionsEl.classList.toggle("voto-actions--voted", !!lastChoice);
   }
 
   function render() {
@@ -175,8 +189,9 @@
         var choice = btn.getAttribute("data-choice");
         if (choice !== "si" && choice !== "no") return;
         if (busy || !API) return;
-        if (lastChoice === choice) {
-          // Ya votó esa opción: reforzar confirmación sin re-enviar
+        // Lock: already voted this q — ignore further taps
+        if (lastChoice) {
+          locked = true;
           justVoted = true;
           render();
           setTimeout(function () {
@@ -191,6 +206,7 @@
         API.voteWithFallback(q, choice).then(function (result) {
           busy = false;
           lastChoice = choice;
+          locked = true;
           justVoted = true;
           applyResult(result);
           setTimeout(function () {
@@ -219,6 +235,7 @@
         });
       }
       lastChoice = null;
+      locked = false;
       justVoted = false;
       refreshFromApi();
     });
@@ -240,10 +257,11 @@
       },
     };
     lastChoice = local.last[q] || null;
+    locked = !!lastChoice;
   }
   render();
   refreshFromApi();
 
-  // Poll en vivo siempre (Sheet o local) cada 4s
+  // Poll en vivo (Sheet o local) cada 4s — útil en ?view=tally; en phone solo refresca lock state
   setInterval(refreshFromApi, 4000);
 })();

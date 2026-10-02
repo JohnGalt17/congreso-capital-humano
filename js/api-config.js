@@ -130,8 +130,10 @@
 
   function applyLocalVote(q, choice) {
     var store = readLocalStore();
-    var prev = store.last[q];
-    if (prev && store[q][prev] > 0) store[q][prev] -= 1;
+    // Lock: one vote per (session + q); do not allow change
+    if (store.last[q]) {
+      return store;
+    }
     store[q][choice] = (store[q][choice] || 0) + 1;
     store.last[q] = choice;
     writeLocalStore(store);
@@ -143,6 +145,17 @@
    * Si el API responde con tallies, se pueden usar para UI en vivo.
    */
   function voteWithFallback(q, choice) {
+    var before = readLocalStore();
+    if (before.last[q]) {
+      return Promise.resolve({
+        ok: true,
+        locked: true,
+        offline: !isConfigured(),
+        store: before,
+        tallies: { a: before.a, b: before.b },
+        last: before.last,
+      });
+    }
     var store = applyLocalVote(q, choice);
     if (!isConfigured()) {
       return Promise.resolve({

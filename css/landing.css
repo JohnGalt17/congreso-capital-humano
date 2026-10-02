@@ -1512,6 +1512,11 @@ body {
   opacity: 0.72;
 }
 
+.voto-actions--locked,
+.voto-actions[hidden] {
+  display: none !important;
+}
+
 .voto-actions .vote-opt.is-selected {
   transform: translateY(-1px);
   box-shadow: 0 0 0 1px currentColor inset;

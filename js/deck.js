@@ -3,7 +3,7 @@
  * TEMP (Elio share): operator filtering PAUSED — always show ALL slides.
  * Gui will later re-enable public vs private mode. Do not hide by data-role.
  * + video pause on slide change
- * + votos: Apps Script (CongresoAPI) + localStorage fallback
+ * + votos: live tallies only on deck (cast from /voto/ phone)
  */
 (function () {
   "use strict";
@@ -306,28 +306,12 @@
     if (sourceEl) sourceEl.textContent = sourceLabel || "";
   }
 
+  /* Projector: live tallies only — no casting from the big screen */
   function refreshDeckVotes() {
-    var store = readStore();
     var sourceLabel =
       API && API.isConfigured() && remoteTallies
         ? "Fuente: Sheet en vivo"
         : "Fuente: este navegador (local)";
-
-    document.querySelectorAll("[data-deck-vote]").forEach(function (row) {
-      var q = row.getAttribute("data-deck-vote");
-      var last = store.last[q];
-      row.querySelectorAll(".vote-opt").forEach(function (btn) {
-        var selected = !!last && btn.getAttribute("data-choice") === last;
-        btn.classList.toggle("is-selected", selected);
-        btn.setAttribute("aria-pressed", selected ? "true" : "false");
-      });
-      var status = document.querySelector('[data-vote-status="' + q + '"]');
-      if (status) {
-        status.textContent = last
-          ? "Tu voto en este dispositivo: " + (last === "si" ? "SÍ" : "NO") + " (podés cambiarlo)"
-          : "";
-      }
-    });
 
     document.querySelectorAll("[data-deck-tally]").forEach(function (panel) {
       var q = panel.getAttribute("data-deck-tally");
@@ -335,31 +319,7 @@
     });
   }
 
-  document.querySelectorAll("[data-deck-vote]").forEach(function (row) {
-    var q = row.getAttribute("data-deck-vote");
-    row.querySelectorAll(".vote-opt").forEach(function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        var choice = btn.getAttribute("data-choice");
-        if (!choice || (q !== "a" && q !== "b")) return;
 
-        if (API) {
-          API.voteWithFallback(q, choice).then(function (result) {
-            if (result.tallies) remoteTallies = result.tallies;
-            refreshDeckVotes();
-          });
-        } else {
-          var store = readStore();
-          var prev = store.last[q];
-          if (prev && store[q][prev] > 0) store[q][prev] -= 1;
-          store[q][choice] = (store[q][choice] || 0) + 1;
-          store.last[q] = choice;
-          writeStore(store);
-          refreshDeckVotes();
-        }
-      });
-    });
-  });
 
   function pullRemoteTallies() {
     if (!API) {
