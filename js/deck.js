@@ -2,55 +2,121 @@
  * deck.js - navegación horizontal del deck
  * TEMP (Elio share): operator filtering PAUSED — always show ALL slides.
  * Gui will later re-enable public vs private mode. Do not hide by data-role.
+ * + video pause on slide change
+ * + votos: Apps Script (CongresoAPI) + localStorage fallback
  */
 (function () {
   "use strict";
 
-  const params = new URLSearchParams(window.location.search);
-  const host = window.location.hostname;
-  const isLocalHost =
+  var API = window.CongresoAPI;
+  var STORAGE_KEY = (API && API.STORAGE_KEY) || "congreso-voto-v1";
+  var params = new URLSearchParams(window.location.search);
+  var host = window.location.hostname;
+  var isLocalHost =
     host === "localhost" ||
     host === "127.0.0.1" ||
     host === "[::1]" ||
     host === "" ||
     window.location.protocol === "file:";
-  const forceLocal = params.get("local") === "1";
+  var forceLocal = params.get("local") === "1";
   /* Kept for future re-enable; currently unused for filtering */
-  const MODE_LOCAL = isLocalHost || forceLocal;
+  var MODE_LOCAL = isLocalHost || forceLocal;
 
-  const deck = document.getElementById("deck");
+  var deck = document.getElementById("deck");
   if (!deck) return;
 
   /** @type {HTMLElement[]} */
-  let slides = Array.from(deck.querySelectorAll(".slide"));
+  var slides = Array.from(deck.querySelectorAll(".slide"));
 
   /* TEMP: do NOT remove operator slides — show all for Elio share */
   // if (!MODE_LOCAL) { ... slide.remove() ... }
 
-  const progressEl = document.getElementById("progress");
-  const dotsEl = document.getElementById("dots");
-  const counterEl = document.getElementById("slide-counter");
-  const btnPrev = document.getElementById("nav-prev");
-  const btnNext = document.getElementById("nav-next");
-  const modeBadge = document.getElementById("mode-badge");
+  var progressEl = document.getElementById("progress");
+  var dotsEl = document.getElementById("dots");
+  var counterEl = document.getElementById("slide-counter");
+  var btnPrev = document.getElementById("nav-prev");
+  var btnNext = document.getElementById("nav-next");
+  var modeBadge = document.getElementById("mode-badge");
 
-  let index = 0;
-  const total = slides.length;
+  var index = 0;
+  var total = slides.length;
+  var remoteTallies = null;
+
+  function voteUrlFor(q) {
+    var configuredBase = String(window.CONGRESO_PUBLIC_BASE || "").trim();
+    var base = configuredBase
+      ? configuredBase.replace(/\/+$/, "")
+      : window.location.origin;
+    return base + "/voto/?q=" + encodeURIComponent(q);
+  }
+
+  function initVoteQRCodes() {
+    document.querySelectorAll("[data-vote-qr]").forEach(function (figure) {
+      var q = figure.getAttribute("data-vote-qr");
+      if (q !== "a" && q !== "b") return;
+      var url = voteUrlFor(q);
+      var image = figure.querySelector("[data-vote-qr-image]");
+      var urlText = figure.querySelector("[data-vote-url-text]");
+      if (image) {
+        image.src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=8&data=" +
+          encodeURIComponent(url);
+        image.alt = "C?digo QR para votar Perfil " + q.toUpperCase();
+      }
+      if (urlText) urlText.textContent = url;
+    });
+  }
 
   if (modeBadge) {
     modeBadge.textContent = "TODAS · filtro pausado";
     modeBadge.hidden = false;
   }
 
+  function readStore() {
+    if (API) return API.readLocalStore();
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { a: { si: 0, no: 0 }, b: { si: 0, no: 0 }, last: {} };
+      var data = JSON.parse(raw);
+      return {
+        a: { si: data.a?.si || 0, no: data.a?.no || 0 },
+        b: { si: data.b?.si || 0, no: data.b?.no || 0 },
+        last: data.last || {},
+      };
+    } catch (_) {
+      return { a: { si: 0, no: 0 }, b: { si: 0, no: 0 }, last: {} };
+    }
+  }
+
+  function writeStore(data) {
+    if (API) {
+      API.writeLocalStore(data);
+      return;
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (_) {
+      /* file:// private mode etc. */
+    }
+  }
+
+  function pauseAllVideos() {
+    deck.querySelectorAll("video").forEach(function (v) {
+      try {
+        v.pause();
+      } catch (_) {}
+    });
+  }
+
   function buildDots() {
     if (!dotsEl) return;
     dotsEl.innerHTML = "";
     slides.forEach(function (slide, i) {
-      const btn = document.createElement("button");
+      var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "dot";
       btn.setAttribute("aria-label", "Ir a diapositiva " + (i + 1));
-      const role = slide.getAttribute("data-role");
+      var role = slide.getAttribute("data-role");
       if (role) btn.setAttribute("data-role-hint", role);
       btn.addEventListener("click", function () {
         goTo(i);
@@ -60,6 +126,8 @@
   }
 
   function updateUI() {
+    pauseAllVideos();
+
     slides.forEach(function (slide, i) {
       slide.setAttribute("aria-hidden", i === index ? "false" : "true");
     });
@@ -111,6 +179,8 @@
   if (btnNext) btnNext.addEventListener("click", next);
 
   document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
     if (e.key === "ArrowRight" || e.key === "PageDown") {
       e.preventDefault();
       next();
@@ -127,7 +197,7 @@
   });
 
   /* Swipe táctil opcional */
-  let touchX = null;
+  var touchX = null;
   deck.addEventListener(
     "touchstart",
     function (e) {
@@ -141,7 +211,7 @@
     "touchend",
     function (e) {
       if (touchX === null || !e.changedTouches || !e.changedTouches[0]) return;
-      const dx = e.changedTouches[0].screenX - touchX;
+      var dx = e.changedTouches[0].screenX - touchX;
       touchX = null;
       if (Math.abs(dx) < 50) return;
       if (dx < 0) next();
@@ -165,17 +235,17 @@
 
   /* Tabs internas en slide de diálogo (Opción 1/2/3) — no cambian de slide */
   document.querySelectorAll("[data-option-tabs]").forEach(function (root) {
-    const tabs = Array.from(root.querySelectorAll("[data-option-tab]"));
-    const panels = Array.from(root.querySelectorAll("[data-option-panel]"));
+    var tabs = Array.from(root.querySelectorAll("[data-option-tab]"));
+    var panels = Array.from(root.querySelectorAll("[data-option-panel]"));
 
     function activate(id) {
       tabs.forEach(function (tab) {
-        const on = tab.getAttribute("data-option-tab") === id;
+        var on = tab.getAttribute("data-option-tab") === id;
         tab.setAttribute("aria-selected", on ? "true" : "false");
         tab.classList.toggle("is-active", on);
       });
       panels.forEach(function (panel) {
-        const on = panel.getAttribute("data-option-panel") === id;
+        var on = panel.getAttribute("data-option-panel") === id;
         panel.hidden = !on;
         panel.classList.toggle("is-active", on);
       });
@@ -187,7 +257,7 @@
       });
     });
 
-    const initial =
+    var initial =
       (tabs.find(function (t) {
         return t.getAttribute("aria-selected") === "true";
       }) &&
@@ -201,8 +271,113 @@
     activate(initial);
   });
 
+  function talliesFor(q) {
+    if (remoteTallies && remoteTallies[q]) return remoteTallies[q];
+    var store = readStore();
+    var t = store[q] || { si: 0, no: 0 };
+    return {
+      si: t.si || 0,
+      no: t.no || 0,
+      total: (t.si || 0) + (t.no || 0),
+    };
+  }
+
+  /* Votos: deck + mismo store que /voto/; API si está configurada */
+  function fillTallyPanel(panel, tallies, sourceLabel) {
+    if (!panel) return;
+    var si = tallies.si || 0;
+    var no = tallies.no || 0;
+    var total = si + no;
+    var pctSi = total ? Math.round((si / total) * 100) : 0;
+    var pctNo = total ? 100 - pctSi : 0;
+    var siEl = panel.querySelector("[data-tally-si]");
+    var noEl = panel.querySelector("[data-tally-no]");
+    var totalEl = panel.querySelector("[data-tally-total]");
+    var barSi = panel.querySelector("[data-tally-bar-si]");
+    var barNo = panel.querySelector("[data-tally-bar-no]");
+    var sourceEl = panel.querySelector("[data-tally-source]");
+    if (siEl) siEl.textContent = String(si);
+    if (noEl) noEl.textContent = String(no);
+    if (totalEl) {
+      totalEl.textContent = total === 1 ? "1 voto" : total + " votos";
+    }
+    if (barSi) barSi.style.width = pctSi + "%";
+    if (barNo) barNo.style.width = pctNo + "%";
+    if (sourceEl) sourceEl.textContent = sourceLabel || "";
+  }
+
+  function refreshDeckVotes() {
+    var store = readStore();
+    var sourceLabel =
+      API && API.isConfigured() && remoteTallies
+        ? "Fuente: Sheet en vivo"
+        : "Fuente: este navegador (local)";
+
+    document.querySelectorAll("[data-deck-vote]").forEach(function (row) {
+      var q = row.getAttribute("data-deck-vote");
+      var last = store.last[q];
+      row.querySelectorAll(".vote-opt").forEach(function (btn) {
+        var selected = !!last && btn.getAttribute("data-choice") === last;
+        btn.classList.toggle("is-selected", selected);
+        btn.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+      var status = document.querySelector('[data-vote-status="' + q + '"]');
+      if (status) {
+        status.textContent = last
+          ? "Tu voto en este dispositivo: " + (last === "si" ? "SÍ" : "NO") + " (podés cambiarlo)"
+          : "";
+      }
+    });
+
+    document.querySelectorAll("[data-deck-tally]").forEach(function (panel) {
+      var q = panel.getAttribute("data-deck-tally");
+      fillTallyPanel(panel, talliesFor(q), sourceLabel);
+    });
+  }
+
+  document.querySelectorAll("[data-deck-vote]").forEach(function (row) {
+    var q = row.getAttribute("data-deck-vote");
+    row.querySelectorAll(".vote-opt").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var choice = btn.getAttribute("data-choice");
+        if (!choice || (q !== "a" && q !== "b")) return;
+
+        if (API) {
+          API.voteWithFallback(q, choice).then(function (result) {
+            if (result.tallies) remoteTallies = result.tallies;
+            refreshDeckVotes();
+          });
+        } else {
+          var store = readStore();
+          var prev = store.last[q];
+          if (prev && store[q][prev] > 0) store[q][prev] -= 1;
+          store[q][choice] = (store[q][choice] || 0) + 1;
+          store.last[q] = choice;
+          writeStore(store);
+          refreshDeckVotes();
+        }
+      });
+    });
+  });
+
+  function pullRemoteTallies() {
+    if (!API) {
+      refreshDeckVotes();
+      return;
+    }
+    API.loadTalliesWithFallback("all").then(function (result) {
+      if (result.tallies) remoteTallies = result.tallies;
+      refreshDeckVotes();
+    });
+  }
+
+  initVoteQRCodes();
   buildDots();
   goTo(0);
+  refreshDeckVotes();
+  pullRemoteTallies();
+  setInterval(pullRemoteTallies, 4000);
 
   window.__deck = {
     mode: "all",
@@ -212,5 +387,8 @@
     next: next,
     prev: prev,
     total: total,
+    voteStoreKey: STORAGE_KEY,
+    refreshVotes: refreshDeckVotes,
+    pullTallies: pullRemoteTallies,
   };
 })();

@@ -3,7 +3,7 @@
 Skeleton de deck **horizontal** para proyector (John Galt).  
 Marca: [johngalt.ar](https://johngalt.ar). Fecha: **8 octubre 2026**.
 
-**7 slides**, todas visibles (filtro operador pausado para share con Elio). Cada slide es viewport completo.
+**15 slides**, todas visibles (filtro operador pausado para share con Elio). Cada slide es viewport completo.
 
 ## Abrir en local
 
@@ -13,9 +13,7 @@ Opción A — archivo directo:
 file:///D:/2026/congreso-ia/landing/index.html
 ```
 
-`file://` / localhost / Vercel: se ven las **7 slides** (filtro mode pausado temporalmente).
-
-Opción B — servidor estático:
+Mejor con servidor estático (video + localStorage):
 
 ```powershell
 cd D:\2026\congreso-ia\landing
@@ -23,66 +21,66 @@ npx --yes serve .
 # o: python -m http.server 5500
 ```
 
-Stubs:
+Páginas:
 
-- `http://localhost:xxxx/voto/`
-- `http://localhost:xxxx/invitados/`
+- `/` — deck
+- `/voto/?q=a` · `/voto/?q=b` — voto local (localStorage)
+- `/voto/?q=a&view=tally` — tallies solo lectura
+- `/invitados/` — stub
+
+## Las 15 slides (orden Gui)
+
+1. **Welcome** — Bienvenidos; UNLaM; 8/10/2026
+2. **Video Elio** — `assets/elio-intro.mp4`
+3. **Diálogo Elio ↔ Gui** — tabs Opción 1/2/3
+4. **QR ChatGPT** — número 1–30
+5. **17** — ¿Cuántos sacaron 17?
+6. **Claude** — challenge 23
+7. **Cierre JG** — «John Galt desaparece hasta la próxima interrupción»
+8. **Video Bilinkis** — `assets/bilinkis.mp4` (IA y trabajo)
+9. **Truco CV · Regla** — misma pregunta, dos fichas
+10. **Perfil A** — Valentina Morales (UBA · Big Four)
+11. **Voto A** — SÍ/NO + `/voto/?q=a`
+12. **Perfil B** — Brian Gómez (otra señal · PyME)
+13. **Voto B** — SÍ/NO + `/voto/?q=b`
+14. **Revelación** — misma persona / distinta señal
+15. **Frase** — «El sesgo no lo inventa la IA. Lo escala.»
+
+## Voto local
+
+Clave `localStorage["congreso-voto-v1"]`. Mismo store entre deck (slides 11/13) y `/voto/`.
+
+## Assets de video
+
+- `assets/elio-intro.mp4` — Veo v1 take 01
+- `assets/bilinkis.mp4` — clip Bilinkis (IA y trabajo)
+
+`js/deck.js` pausa **todos** los `<video>` al cambiar de slide.
 
 ## Modo local vs público (PAUSADO)
 
-`js/deck.js` **ya no filtra** slides `data-role="operator"`. Todas se muestran siempre (Vercel y local).
+Filtro `data-role="operator"` pausado. Badge: `TODAS · filtro pausado`.
 
-Gui reactivará el filtro public/private más adelante. El código de detección `MODE_LOCAL` queda comentado / sin efecto de hide.
+## Vercel
 
-Badge UI: `TODAS · filtro pausado`.
-
-## Las 7 slides
-
-1. **Welcome** (public) — Bienvenidos; UNLaM · Económicas; 8/10/2026; lema coloquio; footer académico
-2. **Introducción de Elio** — placeholder segmento host
-3. **Diálogo Elio ↔ Gui** — 3 opciones con tabs (Opción 1/2/3) en la misma slide
-4. **QR ChatGPT** — `https://chatgpt.com/` + «Decime un número entre el 1 y el 30»
-5. **17** — «¿Cuántos sacaron 17?»
-6. **Claude** — QR `https://claude.ai/` + challenge 23
-7. **Cierre** — «John Galt desaparece hasta la próxima interrupción»
-
-## Vercel (estático)
-
-1. Root = carpeta `landing/`
-2. Framework: Other / static
-3. `vercel.json` rewrites `/voto` y `/invitados`
+Root = `landing/`. No desplegar desde este cambio salvo pedido (videos en assets).
 
 ## Estructura
 
 ```
 landing/
-  index.html          # deck (7 slides, todas visibles)
+  index.html
   vercel.json
   README.md
-  css/
-    brand-tokens.css  # lightness 30, gold + cyan
-    landing.css       # deck + stubs + tabs/welcome
-  js/
-    deck.js           # nav + tabs; filtro operador PAUSADO
-  assets/
-    logo.svg
-    qr-chatgpt.svg    # segno → chatgpt.com
-    qr-claude.svg     # segno → claude.ai
+  css/brand-tokens.css
+  css/landing.css
+  js/deck.js
+  js/voto.js
+  assets/logo.svg
+  assets/qr-chatgpt.svg
+  assets/qr-claude.svg
+  assets/elio-intro.mp4
+  assets/bilinkis.mp4
   voto/index.html
   invitados/index.html
-```
-
-## Tokens
-
-- Fondos LCH (`--lightness: 30`), cards, texto
-- Acentos: cyan `--overlay-color #00aeef` + oro logo
-- Fuentes: Outfit (display UPPERCASE), DM Sans, IBM Plex Mono
-
-## QR
-
-SVG locales con [segno](https://pypi.org/project/segno/) (3-H, border 4). Funcionan en `file://` sin red.
-
-```powershell
-python -c "import segno; segno.make('https://chatgpt.com/', error='H').save('assets/qr-chatgpt.svg', scale=10, dark='#111111', light='#ffffff', border=4)"
-python -c "import segno; segno.make('https://claude.ai/', error='H').save('assets/qr-claude.svg', scale=10, dark='#111111', light='#ffffff', border=4)"
 ```

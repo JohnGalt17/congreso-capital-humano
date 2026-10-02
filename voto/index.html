@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Votación | II Congreso · Capital Humano</title>
+  <title>Votación | Congreso · Capital Humano</title>
   <meta name="robots" content="noindex,nofollow">
   <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,32 +11,64 @@
   <link rel="stylesheet" href="../css/landing.css">
 </head>
 <body>
-  <div class="stub-page">
+  <div class="voto-page">
     <header class="brand-bar" style="align-self:center;">
       <img class="brand-bar__logo" src="../assets/logo.svg" alt="John Galt">
-      <span class="brand-bar__title">II Congreso · Capital Humano</span>
+      <span class="brand-bar__title">Congreso · Capital Humano</span>
     </header>
-    <div class="card card--accent">
-      <p class="slide__kicker">Participá</p>
-      <h1 class="slide__title" style="font-size:clamp(1.4rem,4vw,2rem);">Votación</h1>
-      <p class="slide__subtitle" style="margin-top:0.5rem;">Stub de captura de voto. Formulario no cableado.</p>
-      <form class="stub-form" action="#" method="get" onsubmit="return false;">
-        <label>Pregunta (placeholder)
-          <select disabled>
-            <option>Elegí una opción…</option>
-            <option>Opción A</option>
-            <option>Opción B</option>
-            <option>Opción C</option>
-          </select>
-        </label>
-        <label>Tu voto
-          <input type="text" placeholder="Respuesta corta" disabled>
-        </label>
-        <button type="submit" class="stub-btn" disabled>Enviar (próximamente)</button>
-        <p class="stub-note">UI placeholder — backend / QR se conectan después.</p>
-      </form>
+
+    <div class="card card--accent voto-card">
+      <p class="slide__kicker">Participá · votación en vivo</p>
+      <p id="voto-profile-tag" class="voto-profile-tag">Perfil A</p>
+      <h1 id="voto-title" class="voto-name">Valentina Morales</h1>
+      <p id="voto-question" class="voto-question">¿Avanza Valentina a entrevista?</p>
+
+      <div id="voto-actions" class="voto-actions" role="group" aria-label="Tu voto">
+        <button type="button" class="vote-opt vote-opt--yes" data-choice="si" aria-pressed="false">
+          <span class="vote-opt__label">SÍ</span>
+        </button>
+        <button type="button" class="vote-opt vote-opt--no" data-choice="no" aria-pressed="false">
+          <span class="vote-opt__label">NO</span>
+        </button>
+      </div>
+
+      <div id="voto-status" class="voto-confirm" role="status" aria-live="polite" hidden></div>
+
+      <div id="voto-tally" class="tally-panel" aria-live="polite">
+        <div class="tally-panel__head">
+          <span class="tally-live"><span class="tally-live__dot" aria-hidden="true"></span> En vivo</span>
+          <span id="voto-tally-total" class="tally-panel__total">0 votos</span>
+        </div>
+        <div class="tally-rows">
+          <div class="tally-row tally-row--si">
+            <div class="tally-row__meta">
+              <span class="tally-row__label">SÍ</span>
+              <span id="voto-count-si" class="tally-row__count">0</span>
+            </div>
+            <div class="tally-bar" aria-hidden="true"><span id="voto-bar-si" class="tally-bar__fill tally-bar__fill--si" style="width:0%"></span></div>
+          </div>
+          <div class="tally-row tally-row--no">
+            <div class="tally-row__meta">
+              <span class="tally-row__label">NO</span>
+              <span id="voto-count-no" class="tally-row__count">0</span>
+            </div>
+            <div class="tally-bar" aria-hidden="true"><span id="voto-bar-no" class="tally-bar__fill tally-bar__fill--no" style="width:0%"></span></div>
+          </div>
+        </div>
+        <p id="voto-tally-source" class="tally-panel__source"></p>
+      </div>
+
+      <a id="voto-other" class="voto-other-link" href="?q=b">Ir al otro perfil →</a>
+
+      <p class="stub-note voto-rules-note" style="margin-top:1rem;">
+        Un voto por perfil en esta sesión (A y B independientes). Podés cambiar tu voto tocando la otra opción.
+      </p>
+      <button type="button" id="voto-reset" class="stub-btn voto-reset-btn" style="margin-top:0.75rem;width:100%;">Reiniciar tallies locales</button>
     </div>
+
     <a class="back-link" href="../index.html">← Volver al deck</a>
   </div>
+  <script src="../js/api-config.js"></script>
+  <script src="../js/voto.js" defer></script>
 </body>
 </html>

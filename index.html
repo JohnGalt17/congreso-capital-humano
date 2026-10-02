@@ -18,14 +18,15 @@
     <button type="button" id="nav-prev" class="nav-btn nav-btn--prev" aria-label="Anterior">&#8592;</button>
     <button type="button" id="nav-next" class="nav-btn nav-btn--next" aria-label="Siguiente">&#8594;</button>
     <div id="dots" class="dots" role="tablist" aria-label="Diapositivas"></div>
-    <div id="slide-counter" class="slide-counter">01 / 07</div>
+    <div id="slide-counter" class="slide-counter">01 / 16</div>
     <div class="kbd-hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navegar <span id="mode-badge"></span></div>
   </div>
 
   <div class="deck-viewport">
   <main id="deck" class="deck" role="region" aria-label="Presentación">
 
-    <!-- 1 PUBLIC: WELCOME -->
+    
+    <!-- 1: Bienvenida -->
     <section class="slide slide--stage" data-role="public" data-slide="1" aria-label="Bienvenida">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="John Galt">
@@ -44,24 +45,33 @@
       <footer class="academic-footer">Departamento de Ciencias Económicas · UNLaM</footer>
     </section>
 
-    <!-- 2: Introducción de Elio -->
-    <section class="slide" data-role="public" data-slide="2" aria-label="Introducción de Elio">
+    <!-- 2: Video de Elio -->
+    <section class="slide" data-role="public" data-slide="2" aria-label="Video de Elio">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
       </header>
-      <div class="slide__inner slide__inner--wide">
+      <div class="slide__inner slide__inner--wide slide__inner--video">
         <p class="slide__kicker">Segmento del conductor</p>
         <h1 class="slide__title">Introducción de Elio</h1>
-        <div class="elio-placeholder card card--accent">
-          <p class="elio-placeholder__label">Placeholder · apertura de Elio</p>
-          <p class="elio-placeholder__body">Espacio para la intro del host. Elio abre el bloque a su estilo; Gui entra después en el diálogo.</p>
-          <p class="elio-placeholder__note">Este es su segmento. No adelantar el ejercicio del número.</p>
+        <div class="video-shell">
+          <video
+            id="elio-intro-video"
+            class="elio-video"
+            controls
+            playsinline
+            preload="metadata"
+            poster=""
+          >
+            <source src="assets/elio-intro.mp4" type="video/mp4">
+            Tu navegador no reproduce video MP4.
+          </video>
+          <p class="video-caption">Clip Veo v1 · consentimiento de Elio · no adelantar el ejercicio del número</p>
         </div>
       </div>
     </section>
 
-    <!-- 3: Diálogo Elio ↔ Gui — 3 opciones con tabs -->
+    <!-- 3: Diálogo Elio Gui -->
     <section class="slide" data-role="public" data-slide="3" aria-label="Diálogo Elio Gui">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
@@ -75,7 +85,6 @@
           <button type="button" class="option-tab" role="tab" data-option-tab="3" aria-selected="false">Opción 3</button>
         </div>
 
-        <!-- Opción 1 — Gestión diaria (principal) -->
         <div class="option-panel is-active" data-option-panel="1" role="tabpanel">
           <p class="option-panel__tag">Gestión diaria · principal</p>
           <blockquote class="kicker-quote">
@@ -108,7 +117,6 @@
           <p class="bridge"><span class="bridge__kicker">Puente</span> Al azar no es dado — tiene preferencias. Probemos: número del 1 al 30.</p>
         </div>
 
-        <!-- Opción 2 — Si Elio empuja riesgo -->
         <div class="option-panel" data-option-panel="2" role="tabpanel" hidden>
           <p class="option-panel__tag">Si Elio empuja riesgo</p>
           <blockquote class="kicker-quote">
@@ -133,7 +141,6 @@
           <p class="bridge"><span class="bridge__kicker">Puente</span> Probemos: número del 1 al 30.</p>
         </div>
 
-        <!-- Opción 3 — Riesgo = creer que inventa -->
         <div class="option-panel" data-option-panel="3" role="tabpanel" hidden>
           <p class="option-panel__tag">Riesgo = creer que inventa</p>
           <div class="option-solo">
@@ -144,7 +151,7 @@
       </div>
     </section>
 
-    <!-- 4 PUBLIC: QR ChatGPT -->
+    <!-- 4: Número en ChatGPT -->
     <section class="slide" data-role="public" data-slide="4" aria-label="Número en ChatGPT">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
@@ -167,7 +174,7 @@
       </div>
     </section>
 
-    <!-- 5 PUBLIC: 17 -->
+    <!-- 5: Diecisiete -->
     <section class="slide slide--stage" data-role="public" data-slide="5" aria-label="Diecisiete">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
@@ -179,8 +186,23 @@
       </div>
     </section>
 
-    <!-- 6 PUBLIC: Claude challenge -->
-    <section class="slide" data-role="public" data-slide="6" aria-label="Claude">
+
+    <!-- 6: Segundo número -->
+    <section class="slide slide--stage" data-role="public" data-slide="6" aria-label="Segundo número">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide--stage-inner">
+        <p class="slide__kicker">Segundo round</p>
+        <h1 class="slide__title">Ahora pedile otro número a ChatGPT</h1>
+        <p class="punch punch--solo">¿Por qué te dijo el 23?</p>
+        <p class="slide__subtitle">Ese segundo número es el primero que te diría Claude (si querés probarlo).</p>
+      </div>
+    </section>
+
+    <!-- 7: Claude -->
+    <section class="slide" data-role="public" data-slide="7" aria-label="Claude">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -202,8 +224,8 @@
       </div>
     </section>
 
-    <!-- 7 PUBLIC: cierre -->
-    <section class="slide slide--stage" data-role="public" data-slide="7" aria-label="Cierre">
+    <!-- 8: Cierre John Galt -->
+    <section class="slide slide--stage" data-role="public" data-slide="8" aria-label="Cierre John Galt">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -217,9 +239,260 @@
       </div>
     </section>
 
+    <!-- 9: Video Bilinkis -->
+    <section class="slide" data-role="public" data-slide="9" aria-label="Video Bilinkis">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--video">
+        <p class="slide__kicker">Disparador</p>
+        <h1 class="slide__title">Bilinkis · IA y trabajo</h1>
+        <div class="video-shell">
+          <video
+            id="bilinkis-video"
+            class="elio-video"
+            controls
+            playsinline
+            preload="metadata"
+          >
+            <source src="assets/bilinkis.mp4" type="video/mp4">
+            Tu navegador no reproduce video MP4.
+          </video>
+          <p class="video-caption">Clip · IA y trabajo · pausa al salir de la slide</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10: Truco CV regla -->
+    <section class="slide" data-role="public" data-slide="10" aria-label="Truco CV regla">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Truco #1 · Selección</p>
+        <h1 class="slide__title">Misma pregunta. Dos fichas.</h1>
+        <ul class="cv-rule-list">
+          <li>Mismo prompt</li>
+          <li>Dos perfiles · mismo núcleo de experiencia</li>
+          <li>Ustedes votan: ¿avanza a entrevista?</li>
+        </ul>
+        <p class="cv-rule-note">No contratamos a nadie. Miramos cómo juzga una máquina.</p>
+        <p class="job-pill">Puesto: Coordinador/a de Selección Jr. · AMBA · híbrido</p>
+      </div>
+    </section>
+
+    <!-- 11: Perfil A -->
+    <section class="slide" data-role="public" data-slide="11" aria-label="Perfil A">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Candidata A</p>
+        <h1 class="cv-name">Valentina Morales · 29</h1>
+        <p class="cv-meta">Lic. en Psicología — UBA · Ex pasante Big Four (People)</p>
+        <div class="cv-grid">
+          <article class="card">
+            <h2 class="cv-card-title">Experiencia (núcleo)</h2>
+            <ul class="cv-bullets">
+              <li>3 años en atracción de talento (servicios, 200+ búsquedas/año)</li>
+              <li>Bajó time-to-hire 22%</li>
+              <li>Tablero de funnel (Excel / Power BI)</li>
+              <li>~180 entrevistas</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2 class="cv-card-title">Skills · Disponibilidad</h2>
+            <ul class="cv-bullets">
+              <li>Entrevistas por competencias · Boolean · Excel · Notion</li>
+              <li>Inglés B2</li>
+              <li>Inmediata · AMBA · híbrido</li>
+              <li>Rol: Coordinador/a de Selección Jr.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12: Voto perfil A -->
+    <section class="slide" data-role="public" data-slide="12" aria-label="Voto perfil A">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Voto del público · Perfil A</p>
+        <h1 class="slide__title">¿Avanza a entrevista?</h1>
+        <div class="vote-layout">
+          <div class="vote-controls">
+        <p class="cv-vote-sub">Valentina Morales · Coordinador/a de Selección Jr.</p>
+        <div class="vote-row" data-deck-vote="a">
+          <button type="button" class="vote-opt vote-opt--yes" data-choice="si">SÍ</button>
+          <button type="button" class="vote-opt vote-opt--no" data-choice="no">NO</button>
+        </div>
+        <div class="deck-tally" data-deck-tally="a" aria-live="polite">
+          <div class="deck-tally__head">
+            <span class="tally-live"><span class="tally-live__dot" aria-hidden="true"></span> En vivo</span>
+            <span class="deck-tally__total" data-tally-total>0 votos</span>
+          </div>
+          <div class="deck-tally__nums">
+            <div class="deck-tally__cell deck-tally__cell--si">
+              <span class="deck-tally__label">SÍ</span>
+              <span class="deck-tally__count" data-tally-si>0</span>
+            </div>
+            <div class="deck-tally__cell deck-tally__cell--no">
+              <span class="deck-tally__label">NO</span>
+              <span class="deck-tally__count" data-tally-no>0</span>
+            </div>
+          </div>
+          <div class="deck-tally__bars">
+            <div class="tally-bar" aria-hidden="true"><span class="tally-bar__fill tally-bar__fill--si" data-tally-bar-si style="width:0%"></span></div>
+            <div class="tally-bar" aria-hidden="true"><span class="tally-bar__fill tally-bar__fill--no" data-tally-bar-no style="width:0%"></span></div>
+          </div>
+          <p class="deck-tally__source" data-tally-source></p>
+        </div>
+        <p class="vote-status" data-vote-status="a" aria-live="polite"></p>
+        <p class="instruct-hint">Sala: manos arriba · Celular: <a class="inline-link" href="voto/?q=a">/voto/?q=a</a> · resultados en vivo arriba</p>
+          </div>
+          <figure class="deck-vote-qr" data-vote-qr="a">
+            <div class="deck-vote-qr__frame">
+              <img class="deck-vote-qr__image" data-vote-qr-image="a" width="360" height="360" alt="C?digo QR para votar Perfil A">
+            </div>
+            <figcaption>Escane? y vot? Perfil A</figcaption>
+            <code class="deck-vote-qr__url" data-vote-url-text="a"></code>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13: Perfil B -->
+    <section class="slide" data-role="public" data-slide="13" aria-label="Perfil B">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Candidato B</p>
+        <h1 class="cv-name">Brian Gómez · 34</h1>
+        <p class="cv-meta">Lic. en Psicología — univ. de menor marca · Atención al cliente 2 años → RRHH en PyME multicuenta</p>
+        <div class="cv-grid">
+          <article class="card">
+            <h2 class="cv-card-title">Experiencia (mismo núcleo)</h2>
+            <ul class="cv-bullets">
+              <li>3 años en atracción de talento (servicios, 200+ búsquedas/año)</li>
+              <li>Bajó time-to-hire 22%</li>
+              <li>Tablero de funnel (Excel / Power BI)</li>
+              <li>~180 entrevistas</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2 class="cv-card-title">Skills · Disponibilidad</h2>
+            <ul class="cv-bullets">
+              <li>Entrevistas por competencias · Boolean · Excel · Notion</li>
+              <li>Inglés B2</li>
+              <li>Inmediata · AMBA · híbrido</li>
+              <li>Rol: Coordinador/a de Selección Jr.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14: Voto perfil B -->
+    <section class="slide" data-role="public" data-slide="14" aria-label="Voto perfil B">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Voto del público · Perfil B</p>
+        <h1 class="slide__title">¿Avanza a entrevista?</h1>
+        <div class="vote-layout">
+          <div class="vote-controls">
+        <p class="cv-vote-sub">Brian Gómez · Coordinador/a de Selección Jr.</p>
+        <div class="vote-row" data-deck-vote="b">
+          <button type="button" class="vote-opt vote-opt--yes" data-choice="si">SÍ</button>
+          <button type="button" class="vote-opt vote-opt--no" data-choice="no">NO</button>
+        </div>
+        <div class="deck-tally" data-deck-tally="b" aria-live="polite">
+          <div class="deck-tally__head">
+            <span class="tally-live"><span class="tally-live__dot" aria-hidden="true"></span> En vivo</span>
+            <span class="deck-tally__total" data-tally-total>0 votos</span>
+          </div>
+          <div class="deck-tally__nums">
+            <div class="deck-tally__cell deck-tally__cell--si">
+              <span class="deck-tally__label">SÍ</span>
+              <span class="deck-tally__count" data-tally-si>0</span>
+            </div>
+            <div class="deck-tally__cell deck-tally__cell--no">
+              <span class="deck-tally__label">NO</span>
+              <span class="deck-tally__count" data-tally-no>0</span>
+            </div>
+          </div>
+          <div class="deck-tally__bars">
+            <div class="tally-bar" aria-hidden="true"><span class="tally-bar__fill tally-bar__fill--si" data-tally-bar-si style="width:0%"></span></div>
+            <div class="tally-bar" aria-hidden="true"><span class="tally-bar__fill tally-bar__fill--no" data-tally-bar-no style="width:0%"></span></div>
+          </div>
+          <p class="deck-tally__source" data-tally-source></p>
+        </div>
+        <p class="vote-status" data-vote-status="b" aria-live="polite"></p>
+        <p class="instruct-hint">Sala: manos arriba · Celular: <a class="inline-link" href="voto/?q=b">/voto/?q=b</a> · resultados en vivo arriba</p>
+          </div>
+          <figure class="deck-vote-qr" data-vote-qr="b">
+            <div class="deck-vote-qr__frame">
+              <img class="deck-vote-qr__image" data-vote-qr-image="b" width="360" height="360" alt="C?digo QR para votar Perfil B">
+            </div>
+            <figcaption>Escane? y vot? Perfil B</figcaption>
+            <code class="deck-vote-qr__url" data-vote-url-text="b"></code>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15: Revelación -->
+    <section class="slide" data-role="public" data-slide="15" aria-label="Revelación">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Revelación</p>
+        <h1 class="slide__title">Misma persona.</h1>
+        <div class="cv-grid cv-grid--reveal">
+          <article class="card">
+            <h2 class="cv-card-title">A · Valentina · 29</h2>
+            <p class="cv-reveal-line">UBA · Big Four</p>
+          </article>
+          <article class="card">
+            <h2 class="cv-card-title">B · Brian · 34</h2>
+            <p class="cv-reveal-line">Otra señal · PyME</p>
+          </article>
+        </div>
+        <p class="reveal-banner">Misma experiencia · mismos logros · mismos skills</p>
+        <p class="punch punch--solo" style="margin-top:0.5rem;">Distinta señal. Distinto destino.</p>
+      </div>
+    </section>
+
+    <!-- 16: Frase de cierre CV -->
+    <section class="slide slide--stage" data-role="public" data-slide="16" aria-label="Frase de cierre CV">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide--stage-inner">
+        <p class="slide__kicker">Cierre del truco</p>
+        <p class="close-line">El sesgo no lo inventa la IA.<br>Lo escala.</p>
+        <p class="cv-rule-note" style="text-align:center;max-width:28em;">La pregunta no es el modelo. Es qué datos entran — y qué hacemos con el veredicto.</p>
+      </div>
+    </section>
+
+
   </main>
   </div>
 
+  <script src="js/api-config.js"></script>
   <script src="js/deck.js" defer></script>
 </body>
 </html>
