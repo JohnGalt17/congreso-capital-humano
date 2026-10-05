@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     <button type="button" id="nav-prev" class="nav-btn nav-btn--prev" aria-label="Anterior">&#8592;</button>
     <button type="button" id="nav-next" class="nav-btn nav-btn--next" aria-label="Siguiente">&#8594;</button>
     <div id="dots" class="dots" role="tablist" aria-label="Diapositivas"></div>
-    <div id="slide-counter" class="slide-counter">01 / 16</div>
+    <div id="slide-counter" class="slide-counter">01 / 19</div>
     <div class="kbd-hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navegar <span id="mode-badge"></span></div>
   </div>
 
@@ -26,7 +26,6 @@
   <main id="deck" class="deck" role="region" aria-label="Presentación">
 
     
-    <!-- 1: Bienvenida -->
     <section class="slide slide--stage" data-role="public" data-slide="1" aria-label="Bienvenida">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="John Galt">
@@ -43,10 +42,7 @@
         </ul>
       </div>
       <footer class="academic-footer">Departamento de Ciencias Económicas · UNLaM</footer>
-    </section>
-
-    <!-- 2: Video de Elio -->
-    <section class="slide" data-role="public" data-slide="2" aria-label="Video de Elio">
+    </section><section class="slide" data-role="public" data-slide="2" aria-label="Video de Elio">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -69,10 +65,7 @@
           <p class="video-caption">Clip Veo v1 · consentimiento de Elio · no adelantar el ejercicio del número</p>
         </div>
       </div>
-    </section>
-
-    <!-- 3: Diálogo Elio Gui -->
-    <section class="slide" data-role="public" data-slide="3" aria-label="Diálogo Elio Gui">
+    </section><section class="slide" data-role="public" data-slide="3" aria-label="Diálogo Elio Gui">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -82,8 +75,7 @@
         <div class="option-tabs" role="tablist" aria-label="Opciones de diálogo">
           <button type="button" class="option-tab is-active" role="tab" data-option-tab="1" aria-selected="true">Opción 1</button>
           <button type="button" class="option-tab" role="tab" data-option-tab="2" aria-selected="false">Opción 2</button>
-          <button type="button" class="option-tab" role="tab" data-option-tab="3" aria-selected="false">Opción 3</button>
-        </div>
+          </div>
 
         <div class="option-panel is-active" data-option-panel="1" role="tabpanel">
           <p class="option-panel__tag">Gestión diaria · principal</p>
@@ -140,19 +132,8 @@
           </div>
           <p class="bridge"><span class="bridge__kicker">Puente</span> Probemos: número del 1 al 30.</p>
         </div>
-
-        <div class="option-panel" data-option-panel="3" role="tabpanel" hidden>
-          <p class="option-panel__tag">Riesgo = creer que inventa</p>
-          <div class="option-solo">
-            <p class="punch punch--solo">«El riesgo no es que te ayude con el mail. Es que creas que está inventando.»</p>
-            <p class="bridge bridge--center"><span class="bridge__kicker">Puente</span> Mirá: número del 1 al 30.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4: Número en ChatGPT -->
-    <section class="slide" data-role="public" data-slide="4" aria-label="Número en ChatGPT">
+</div>
+    </section><section class="slide" data-role="public" data-slide="4" aria-label="Número en ChatGPT">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -172,10 +153,7 @@
           <figcaption class="qr-caption">chatgpt.com</figcaption>
         </figure>
       </div>
-    </section>
-
-    <!-- 5: Diecisiete -->
-    <section class="slide slide--stage" data-role="public" data-slide="5" aria-label="Diecisiete">
+    </section><section class="slide slide--stage" data-role="public" data-slide="5" aria-label="Diecisiete">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -184,11 +162,7 @@
         <p class="hero-num">17</p>
         <p class="hero-sub">¿Cuántos sacaron 17?</p>
       </div>
-    </section>
-
-
-    <!-- 6: Segundo número -->
-    <section class="slide slide--stage" data-role="public" data-slide="6" aria-label="Segundo número">
+    </section><section class="slide slide--stage" data-role="public" data-slide="6" aria-label="Segundo número">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -199,10 +173,7 @@
         <p class="punch punch--solo">¿Por qué te dijo el 23?</p>
         <p class="slide__subtitle">Ese segundo número es el primero que te diría Claude (si querés probarlo).</p>
       </div>
-    </section>
-
-    <!-- 7: Claude -->
-    <section class="slide" data-role="public" data-slide="7" aria-label="Claude">
+    </section><section class="slide" data-role="public" data-slide="7" aria-label="Claude">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -222,10 +193,7 @@
           <figcaption class="qr-caption">claude.ai</figcaption>
         </figure>
       </div>
-    </section>
-
-    <!-- 8: Cierre John Galt -->
-    <section class="slide slide--stage" data-role="public" data-slide="8" aria-label="Cierre John Galt">
+    </section><section class="slide slide--stage" data-role="public" data-slide="8" aria-label="Cierre John Galt">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -237,35 +205,7 @@
           <span>hasta la próxima interrupción</span>
         </h2>
       </div>
-    </section>
-
-    <!-- 9: Video Bilinkis -->
-    <section class="slide" data-role="public" data-slide="9" aria-label="Video Bilinkis">
-      <header class="brand-bar">
-        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
-        <span class="brand-bar__title">Congreso · Capital Humano</span>
-      </header>
-      <div class="slide__inner slide__inner--wide slide__inner--video">
-        <p class="slide__kicker">Disparador</p>
-        <h1 class="slide__title">Bilinkis · IA y trabajo</h1>
-        <div class="video-shell">
-          <video
-            id="bilinkis-video"
-            class="elio-video"
-            controls
-            playsinline
-            preload="metadata"
-          >
-            <source src="assets/bilinkis.mp4" type="video/mp4">
-            Tu navegador no reproduce video MP4.
-          </video>
-          <p class="video-caption">Clip · IA y trabajo · pausa al salir de la slide</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10: Truco CV regla -->
-    <section class="slide" data-role="public" data-slide="10" aria-label="Truco CV regla">
+    </section><section class="slide" data-role="public" data-slide="9" aria-label="Truco CV regla">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -281,10 +221,7 @@
         <p class="cv-rule-note">No contratamos a nadie. Miramos cómo juzga una máquina.</p>
         <p class="job-pill">Puesto: Coordinador/a de Selección Jr. · AMBA · híbrido</p>
       </div>
-    </section>
-
-    <!-- 11: Perfil A -->
-    <section class="slide" data-role="public" data-slide="11" aria-label="Perfil A">
+    </section><section class="slide" data-role="public" data-slide="10" aria-label="Perfil A">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -314,10 +251,7 @@
           </article>
         </div>
       </div>
-    </section>
-
-    <!-- 12: Voto perfil A -->
-    <section class="slide" data-role="public" data-slide="12" aria-label="Voto perfil A">
+    </section><section class="slide" data-role="public" data-slide="11" aria-label="Voto perfil A">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -360,10 +294,7 @@
           </figure>
         </div>
       </div>
-    </section>
-
-    <!-- 13: Perfil B -->
-    <section class="slide" data-role="public" data-slide="13" aria-label="Perfil B">
+    </section><section class="slide" data-role="public" data-slide="12" aria-label="Perfil B">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -393,10 +324,7 @@
           </article>
         </div>
       </div>
-    </section>
-
-    <!-- 14: Voto perfil B -->
-    <section class="slide" data-role="public" data-slide="14" aria-label="Voto perfil B">
+    </section><section class="slide" data-role="public" data-slide="13" aria-label="Voto perfil B">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -439,10 +367,7 @@
           </figure>
         </div>
       </div>
-    </section>
-
-    <!-- 15: Revelación -->
-    <section class="slide" data-role="public" data-slide="15" aria-label="Revelación">
+    </section><section class="slide" data-role="public" data-slide="14" aria-label="Revelación">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -463,10 +388,7 @@
         <p class="reveal-banner">Misma experiencia · mismos logros · mismos skills</p>
         <p class="punch punch--solo" style="margin-top:0.5rem;">Distinta señal. Distinto destino.</p>
       </div>
-    </section>
-
-    <!-- 16: Frase de cierre CV -->
-    <section class="slide slide--stage" data-role="public" data-slide="16" aria-label="Frase de cierre CV">
+    </section><section class="slide slide--stage" data-role="public" data-slide="15" aria-label="Frase de cierre CV">
       <header class="brand-bar">
         <img class="brand-bar__logo" src="assets/logo.svg" alt="">
         <span class="brand-bar__title">Congreso · Capital Humano</span>
@@ -479,7 +401,97 @@
     </section>
 
 
-  </main>
+  <!-- 1: Bienvenida -->
+    <section class="slide" data-role="public" data-slide="16" aria-label="Video Bilinkis">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--video">
+        <p class="slide__kicker">Disparador</p>
+        <h1 class="slide__title">Bilinkis · IA y trabajo</h1>
+        <div class="video-shell">
+          <video
+            id="bilinkis-video"
+            class="elio-video"
+            controls
+            playsinline
+            preload="metadata"
+          >
+            <source src="assets/bilinkis.mp4" type="video/mp4">
+            Tu navegador no reproduce video MP4.
+          </video>
+          <p class="video-caption">Clip · IA y trabajo · pausa al salir de la slide</p>
+          <p class="video-caption">Validar con Elio</p>
+        </div>
+      </div>
+    </section>
+
+<section class="slide" data-role="public" data-slide="17" aria-label="Noticia Luna">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--video">
+        <p class="slide__kicker">Noticia</p>
+        <h1 class="slide__title">Luna · la IA que despidió</h1>
+        <div class="video-shell">
+          <video
+            id="elio-luna-video"
+            class="elio-video"
+            controls
+            playsinline
+            preload="metadata"
+          >
+            <source src="assets/elio-luna.mp4" type="video/mp4">
+            Tu navegador no reproduce video MP4.
+          </video>
+          <p class="video-caption">Clip hasta “se le olvidó”. Falta el cierre en video: Elio lo dice en vivo — “La IA acelera. El humano decide.”</p>
+          <p class="video-caption video-caption--source"><a href="https://andonlabs.com/blog/ai-bosses-2" target="_blank" rel="noopener noreferrer">Fuente · Andon Labs</a> · <a href="https://www.businessinsider.com/ai-running-sf-store-fired-employee-for-the-first-time-2026-8" target="_blank" rel="noopener noreferrer">Business Insider</a></p>
+        </div>
+      </div>
+    </section>
+
+<section class="slide" data-role="public" data-slide="18" aria-label="Noticia Protesta">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide slide__inner--video">
+        <p class="slide__kicker">Noticia</p>
+        <h1 class="slide__title">Protesta · la IA en la calle</h1>
+        <div class="video-shell">
+          <video
+            id="elio-protesta-video"
+            class="elio-video"
+            controls
+            playsinline
+            preload="metadata"
+          >
+            <source src="assets/elio-protesta.mp4" type="video/mp4">
+            Tu navegador no reproduce video MP4.
+          </video>
+          <p class="video-caption">Clip Polonia · robots en la calle · la protesta sindical de las IA</p>
+          <p class="video-caption video-caption--source"><a href="https://www.pagina12.com.ar/2026/09/07/decenas-de-robots-protestan-contra-el-uso-descontrolado-de-la-ia-en-polonia/" target="_blank" rel="noopener noreferrer">Fuente · Página/12</a> · <a href="https://weekend.perfil.com/noticias/informativo/lo-que-faltaba-decenas-de-robots-exigen-mayor-regulacion-de-la-ia-en-polonia.phtml" target="_blank" rel="noopener noreferrer">Perfil</a> · <a href="https://notesfrompoland.com/2026/09/08/robots-protest-in-warsaw-to-demand-regulation-of-ai-and-automation/" target="_blank" rel="noopener noreferrer">Notes from Poland</a></p>
+        </div>
+      </div>
+    </section>
+
+<section class="slide" data-role="public" data-slide="19" aria-label="Falta video noticia">
+      <header class="brand-bar">
+        <img class="brand-bar__logo" src="assets/logo.svg" alt="">
+        <span class="brand-bar__title">Congreso · Capital Humano</span>
+      </header>
+      <div class="slide__inner slide__inner--wide">
+        <p class="slide__kicker">Noticia</p>
+        <h1 class="slide__title">Falta video / noticia</h1>
+        <div class="elio-placeholder">
+          <p class="elio-placeholder__label">Pendiente</p>
+          <p class="elio-placeholder__body">Tercer corte del rundown, aún sin definir (el del Word: «A determinar», ~20:30).</p>
+        </div>
+      </div>
+    </section>
+</main>
   </div>
 
   <script src="js/api-config.js"></script>

@@ -1780,3 +1780,19 @@ body:not(.voto-view-tally) #voto-reset {
     max-height: 48vh;
   }
 }
+
+
+.video-caption--source {
+  margin-top: 0.35rem;
+  opacity: 0.85;
+}
+
+.video-caption--source a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.video-caption--source a:hover {
+  opacity: 1;
+}
