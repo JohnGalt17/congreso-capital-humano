@@ -1,0 +1,26 @@
+﻿PRESENTACION CONGRESO CAPITAL HUMANO E IA - PLAN B (sin servidor)
+=================================================================
+
+Abrir
+-----
+1. Descomprimir la carpeta (si vino en ZIP): clic derecho > "Extraer todo".
+2. Doble clic en ABRIR-PRESENTACION.bat
+   Se abre Chrome o Edge en pantalla completa con la presentacion.
+   Si Windows muestra "Windows protegio su PC": "Mas informacion" > "Ejecutar de todas formas".
+   Alternativa: doble clic en index.html y apretar F11.
+
+Manejar
+-------
+- Flecha derecha / izquierda: siguiente / anterior.
+- Los videos: clic en play (o barra espaciadora sobre el video).
+- F11 o Esc: salir de pantalla completa.  Alt+F4: cerrar.
+
+Que funciona sin internet
+-------------------------
+- Todas las slides, tipografias, videos y QR se ven igual.
+- Los QR llevan a sitios web: el publico necesita datos en su celular.
+- Votacion en vivo (perfil A / B): necesita internet en esta PC y en los celulares
+  (los votos van a la planilla de Google). Sin conexion, la PC muestra solo
+  los votos locales.
+
+Version online (plan A): https://congreso-capital-humano.vercel.app

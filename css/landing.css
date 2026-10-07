@@ -1118,6 +1118,15 @@ body {
   font-weight: 600;
 }
 
+.job-pill--hero {
+  margin: 0.2rem 0 0.9rem;
+  padding: 0.7rem 1.4rem;
+  font-size: clamp(1rem, 1.9vw, 1.4rem);
+  background: color-mix(in oklab, var(--overlay-color) 26%, transparent);
+  border: 2px solid var(--overlay-color);
+  box-shadow: 0 0 24px color-mix(in oklab, var(--overlay-color) 35%, transparent);
+}
+
 .cv-name {
   font-family: var(--font-display);
   font-weight: 600;
@@ -1795,4 +1804,54 @@ body:not(.voto-view-tally) #voto-reset {
 
 .video-caption--source a:hover {
   opacity: 1;
+}
+
+
+/* Slide final: redes + podcast John Galt */
+.jg-socials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.4rem;
+}
+.jg-socials__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.jg-socials__head .close-logo { margin: 0 0 0.2rem; }
+.jg-socials__qrs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+.jg-socials__qrs .qr-frame img { width: min(42vh, 340px); }
+.jg-socials__qrs .qr-caption { color: var(--overlay-color); font-size: 0.85rem; }
+.jg-socials__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.6rem;
+}
+.jg-socials__list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+}
+.jg-socials__list a span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--mono-tracking);
+  text-transform: uppercase;
+  color: var(--overlay-color);
 }
