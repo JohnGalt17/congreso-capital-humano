@@ -13,6 +13,8 @@ Manejar
 -------
 - Flecha derecha / izquierda: siguiente / anterior.
 - Los videos: clic en play (o barra espaciadora sobre el video).
+- Tecla C (o el boton de la campanita abajo a la derecha): suena la campana de box.
+  Funciona en cualquier slide y todas las veces que quieras.
 - F11 o Esc: salir de pantalla completa.  Alt+F4: cerrar.
 
 Que funciona sin internet

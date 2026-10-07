@@ -193,7 +193,28 @@
     } else if (e.key === "End") {
       e.preventDefault();
       goTo(total - 1);
+    } else if (e.key === "c" || e.key === "C") {
+      e.preventDefault();
+      playBell();
     }
+  });
+
+  /* Campana de box: tecla C o boton, en cualquier slide, cuantas veces se quiera */
+  var bellSrc = new Audio("assets/campana.mp3");
+  bellSrc.preload = "auto";
+  function playBell() {
+    try {
+      var a = bellSrc.cloneNode(true);
+      a.volume = 1;
+      var pr = a.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } catch (_) {}
+  }
+  var btnBell = document.getElementById("bell-btn");
+  if (btnBell) btnBell.addEventListener("click", function (e) {
+    e.preventDefault();
+    playBell();
+    btnBell.blur();
   });
 
   /* Swipe táctil opcional */
