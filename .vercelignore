@@ -1,0 +1,4 @@
+.env*
+_snip.py
+.git
+node_modules
