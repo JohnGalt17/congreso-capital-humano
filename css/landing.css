@@ -1875,3 +1875,16 @@ body:not(.voto-view-tally) #voto-reset {
 }
 .bell-btn:hover { opacity: 1; }
 .bell-btn:active { transform: scale(0.92); }
+
+/* Resultado del prompt (Pasa / No pasa) */
+.verdict {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(5rem, 26vh, 16rem);
+  line-height: 0.9;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0.3rem 0 0.6rem;
+}
+.verdict--si { color: #3ddc84; text-shadow: 0 0 40px rgba(61, 220, 132, 0.35); }
+.verdict--no { color: #ff5a5f; text-shadow: 0 0 40px rgba(255, 90, 95, 0.35); }
